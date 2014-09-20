@@ -7,7 +7,8 @@ include (${VALA_USE_FILE})
 
 # Static library
 vala_add_library (test1 libtest1.vala
-	CREATE_VAPI
+	GENERATE_VAPI
+	GENERATE_INTERNAL_VAPI
 	LIBRARY_NAME test1
 	VAPI_PATH_VARIABLE test1_vapi
 	PACKAGES
@@ -16,7 +17,8 @@ vala_add_library (test1 libtest1.vala
 
 # Shared library
 vala_add_library (test2 SHARED libtest2.vala
-	CREATE_VAPI
+	GENERATE_VAPI
+	GENERATE_INTERNAL_VAPI
 	LIBRARY_NAME test2
 	VAPI_PATH_VARIABLE test2_vapi
 	PACKAGES

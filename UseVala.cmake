@@ -26,7 +26,7 @@ include (CMakeParseArguments)
 function (vala_precompile)
 	cmake_parse_arguments (
 		ARGS
-		"CREATE_VAPI;CREATE_INTERNAL_VAPI"
+		"GENERATE_VAPI;GENERATE_INTERNAL_VAPI"
 		"VAPI_PATH_VARIABLE;HEADER_PATH_VARIABLE;INTERNAL_VAPI_PATH_VARIABLE;INTERNAL_HEADER_PATH_VARIABLE;C_SOURCES_VARIABLE;LIBRARY_NAME"
 		"SOURCES;PACKAGES;OPTIONS;CUSTOM_VAPIS"
 		${ARGN}
@@ -48,7 +48,7 @@ function (vala_precompile)
 	endif ()
 
 	# Should vapi be generated?
-	if (ARGS_CREATE_VAPI)
+	if (ARGS_GENERATE_VAPI)
 		if (NOT ARGS_LIBRARY_NAME)
 			message (FATAL_ERROR "You can not create a vapi without setting LIBRARY_NAME.")
 		endif ()
@@ -64,7 +64,7 @@ function (vala_precompile)
 	endif ()
 
 	# Should internal vapi be generated?
-	if (ARGS_CREATE_INTERNAL_VAPI)
+	if (ARGS_GENERATE_INTERNAL_VAPI)
 		if (NOT ARGS_LIBRARY_NAME)
 			message (FATAL_ERROR "You can not create an internal vapi without setting LIBRARY_NAME.")
 		endif ()
@@ -176,18 +176,18 @@ endfunction ()
 function (vala_add_library name type)
 	cmake_parse_arguments (
 		ARGS
-		"CREATE_VAPI;CREATE_INTERNAL_VAPI"
+		"GENERATE_VAPI;GENERATE_INTERNAL_VAPI"
 		"VAPI_PATH_VARIABLE;HEADER_PATH_VARIABLE;INTERNAL_VAPI_PATH_VARIABLE;INTERNAL_HEADER_PATH_VARIABLE;LIBRARY_NAME"
 		"PACKAGES;OPTIONS;CUSTOM_VAPIS"
 		${ARGN}
 	)
 
 	unset (precompile_options)
-	if (ARGS_CREATE_VAPI)
-		set (precompile_options CREATE_VAPI)
+	if (ARGS_GENERATE_VAPI)
+		set (precompile_options GENERATE_VAPI)
 	endif ()
-	if (ARGS_CREATE_INTERNAL_VAPI)
-		set (precompile_options ${precompile_options} CREATE_INTERNAL_VAPI)
+	if (ARGS_GENERATE_INTERNAL_VAPI)
+		set (precompile_options ${precompile_options} GENERATE_INTERNAL_VAPI)
 	endif ()
 
 	if (NOT type MATCHES "^(STATIC|SHARED|MODULE|OBJECT)$")
