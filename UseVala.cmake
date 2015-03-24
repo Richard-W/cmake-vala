@@ -141,7 +141,7 @@ function (vala_add_executable name)
 		ARGS
 		""
 		""
-		"PACKAGES;OPTIONS;CUSTOM_VAPIS"
+		"PACKAGES;OPTIONS;CUSTOM_VAPIS;C_SOURCES"
 		${ARGN}
 	)
 
@@ -170,7 +170,7 @@ function (vala_add_executable name)
 		endforeach ()
 	endforeach ()
 	
-	add_executable (${name} ${c_sources})
+	add_executable (${name} ${c_sources} ${ARGS_C_SOURCES})
 	target_link_libraries (${name}
 		${local_libraries}
 		${VALA_LIBRARIES}
@@ -182,7 +182,7 @@ function (vala_add_library name type)
 		ARGS
 		"GENERATE_VAPI;GENERATE_INTERNAL_VAPI"
 		"VAPI_PATH_VARIABLE;HEADER_PATH_VARIABLE;INTERNAL_VAPI_PATH_VARIABLE;INTERNAL_HEADER_PATH_VARIABLE;LIBRARY_NAME"
-		"PACKAGES;OPTIONS;CUSTOM_VAPIS"
+		"PACKAGES;OPTIONS;CUSTOM_VAPIS;C_SOURCES"
 		${ARGN}
 	)
 
@@ -235,7 +235,7 @@ function (vala_add_library name type)
 		endforeach ()
 	endforeach ()
 
-	add_library (${name} ${type} ${c_sources})
+	add_library (${name} ${type} ${c_sources} ${ARGS_C_SOURCES})
 	target_link_libraries (${name}
 		${VALA_LIBRARIES}
 		${local_libraries}
